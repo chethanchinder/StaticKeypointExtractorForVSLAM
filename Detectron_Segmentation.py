@@ -18,12 +18,13 @@ class Detectron:
 		self.cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-PanopticSegmentation/panoptic_fpn_R_50_1x.yaml")
 		self.predictor = DefaultPredictor(self.cfg)
 	def onImage(self,image):
-		panoptic_seg, segmentation_info = self.predictor(image)["panoptic_seg"]
+		#panoptic_seg, segmentation_info = self.predictor(image)["panoptic_seg"]
+		panoptic_seg_details = self.predictor(image)
 		# v = Visualizer(image[:, :, ::-1], MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]), scale=1.2)
 		# out = v.draw_panoptic_seg_predictions(panoptic_seg,segmentation_info)
 		# cv2.imshow("output",out.get_image()[:, :, ::-1])
 		# cv2.waitKey(1)
-		return panoptic_seg
+		return panoptic_seg_details
 if __name__=="__main__":
 	model_start = time.time()
 	detectron_seg = Detectron()
